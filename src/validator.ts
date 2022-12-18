@@ -19,6 +19,12 @@ export default class Validator {
   // The validator functions to use for validation, including both base rules and custom rules
   private validator!: BaseValidatorRule & CustomRules;
 
+  /**
+   * Constructor for the Validator class.
+   * @param formData The form data to validate.
+   * @param customRules Custom validation rules to use.
+   * @param rules Validation rules to apply to the form data.
+   */
   constructor({ formData, customRules, rules }: FormState) {
     this.formData = formData;
     this.rules = rules ?? {};
@@ -66,6 +72,12 @@ export default class Validator {
     }
   }
 
+  /**
+   * Validates the elements of an array field in the form data.
+   * @param field The field name, including a wildcard character.
+   * @param fieldKeys The field name split into an array of keys.
+   * @param fieldRules The validation rules to apply to the field.
+   */
   private async validateArrayObjects(
     field: string,
     fieldKeys: string[],
@@ -91,6 +103,12 @@ export default class Validator {
     }
   }
 
+  /**
+   * Validates the elements of an array field in the form data.
+   * @param field The field name, whitout a wildcard character.
+   * @param fieldKeys The field name split into an array of keys.
+   * @param fieldRules The validation rules to apply to the field.
+   */
   private async validateFieldValue(
     field: string,
     fieldKeys: string[],
@@ -165,7 +183,15 @@ export default class Validator {
     }
   }
 
-  // Extract the logic for parsing the validator name and arguments into a separate function
+  /**
+   * To parse rule into validator name & parameters
+   * Example:
+   * between:2,3
+   * Result:
+   * between
+   * [2,3]
+   * @param rule
+   */
   private parseRule(rule: string): [string, string[]] {
     const [validatorName, paramArgs] = rule.split(":");
     const parameters = paramArgs
@@ -225,7 +251,7 @@ export default class Validator {
     return !this.pass();
   }
 
-  // Getters & Setters for unit test
+  // Getters & Setters for unit test purpose
   public getFormData(): FormData {
     return this.formData;
   }
