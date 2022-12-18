@@ -1,7 +1,7 @@
 {
   "name": "kl-validator",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "main": "./dist/kl-validator.umd.cjs",
   "module": "./dist/kl-validator.js",
