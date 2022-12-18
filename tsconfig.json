@@ -19,6 +19,7 @@
     "skipLibCheck": true
   },
   "include": [
-    "src"
-, "src/validator-instance.spec.ts"  ]
+    "src",
+    "__test__"
+  ]
 }

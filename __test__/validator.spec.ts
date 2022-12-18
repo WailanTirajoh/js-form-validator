@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import Validator from "./validator";
-import { validatorErrorMessage } from "./base-rules";
+import Validator from "../src/validator";
+import { validatorErrorMessage } from "../src/base-rules";
 
-describe("Validator Service", () => {
+describe("Validator Unit", () => {
   let validator: Validator;
 
   beforeEach(() => {

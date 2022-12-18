@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import Validator from "./validator";
-import { validatorErrorMessage, baseValidatorRule } from "./base-rules";
+import Validator from "../src/validator";
+import { validatorErrorMessage, baseValidatorRule } from "../src/base-rules";
 
-describe("Validator", () => {
+describe("Validator Instance", () => {
   let validator: Validator;
 
   beforeEach(() => {
