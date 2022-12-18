@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { baseValidatorRule } from "./base-rules";
 
 export type BaseValidatorRule = typeof baseValidatorRule;

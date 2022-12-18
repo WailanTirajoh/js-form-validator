@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { validatorErrorMessage } from "./validator-error-message";
 
 export const baseValidatorRule = {

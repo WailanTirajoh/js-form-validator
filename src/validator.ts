@@ -141,6 +141,7 @@ export default class Validator {
 	 */
 	private getValidatorResult(
 		field: string,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		fieldValue: any,
 		rule: ValidationRule
 	) {
