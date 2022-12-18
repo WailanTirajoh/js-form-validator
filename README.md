@@ -113,6 +113,7 @@ if (validator.fail()) {
 ```
 
 ### Function parameters
+
 We can also parse parameters to the custom rules
 
 ```
@@ -135,7 +136,9 @@ validator.mergeCustomRules({
     },
 });
 ```
+
 ### Anonymous Function
+
 Or set anonymous function inside the array rules
 
 ```
@@ -157,7 +160,9 @@ const validator = new Validator({
   },
 })
 ```
+
 ### Async / Await syntax
+
 It can also use async / await syntax to fetch data and wait it to be fetched from some external source
 
 ```
@@ -178,4 +183,3 @@ const validator = new Validator({
   },
 })
 ```
-
