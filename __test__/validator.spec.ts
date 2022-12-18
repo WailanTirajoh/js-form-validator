@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import Validator from "../src/validator";
-import { validatorErrorMessage } from "../src/base-rules";
+import { validatorErrorMessage } from "../src/validator-error-message";
 
 describe("Validator Unit", () => {
   let validator: Validator;
