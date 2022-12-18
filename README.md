@@ -1,6 +1,6 @@
 # KL Validator
 
-KL Validator is a library for validating form data. It provides a set of base rules for checking the type and value of various inputs, and allows you to define custom rules as well.
+KL Validator is a simple form data validation library for JavaScript. It provides a set of base rules for checking the type and value of various inputs, and allows you to define custom rules as well.
 
 ## Installation
 
