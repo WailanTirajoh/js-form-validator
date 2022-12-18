@@ -3,3 +3,4 @@ src
 vite.config.ts
 tsconfig.json 
 pnpm-lock.yaml
+**/coverage
