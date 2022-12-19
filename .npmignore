@@ -1,7 +1,9 @@
 src
 .gitignore
 vite.config.ts
-tsconfig.json 
+tsconfig.json
 pnpm-lock.yaml
 **/coverage
 **/__test__
+.github
+.vscode
