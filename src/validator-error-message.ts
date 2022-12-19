@@ -7,7 +7,9 @@ export const validatorErrorMessage: Record<keyof BaseValidatorRule, string> = {
 	["numeric"]: `The field must be numeric`,
 	["string"]: `The field must be string`,
 	["boolean"]: `The field must be a boolean`,
-	["image"]: `The field must be an image`,
-	["size"]: `The size must be between {minSize} and {maxSize} bytes`,
+	// ["image"]: `The field must be an image`,
+	// ["size"]: `The size must be between {minSize} and {maxSize} bytes`,
 	["allowed"]: `The field must be one of the following: {args}`,
+	["email"]: `The field is not a valid email address`,
+	["min"]: `The field has minimum of {minSize} but it got value {value}`,
 };

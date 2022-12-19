@@ -37,6 +37,17 @@ describe("Validator Instance", () => {
 		expect(errors).toEqual({
 			age: [validatorErrorMessage["integer"]],
 		});
+		const failedFields = validator.getFailedFields();
+		expect(failedFields).contain("age");
+		const ageError = validator.getError("age");
+		expect(ageError).toBe(validatorErrorMessage["integer"]);
+
+		const rules = validator.getRules();
+		expect(rules).toEqual({
+			name: ["required", "string"],
+			age: ["required", "integer"],
+			email: ["required", "string"],
+		});
 	});
 
 	it("merge custom rules", () => {
@@ -50,5 +61,13 @@ describe("Validator Instance", () => {
 			...baseValidatorRule,
 			...customRules,
 		});
+	});
+
+	it("skip on rules that doesnt exists", async () => {
+		validator.setRules({
+			age: ["doesntexists"],
+		});
+		await validator.validate();
+		console.log(validator.pass());
 	});
 });

@@ -118,8 +118,8 @@ export default class Validator {
 		for (const key of fieldKeys) {
 			fieldValue = fieldValue[key];
 		}
-		// Get the results of validating each rule for the field
-		const ruleResults = await Promise.all(
+		// Get the error results of validating each rule for the field
+		const errors = await Promise.all(
 			fieldRules.map((rule) =>
 				// If the validator result is a promise, return it directly,
 				// otherwise wrap it in a resolved promise
@@ -128,10 +128,11 @@ export default class Validator {
 					: Promise.resolve(this.getValidatorResult(field, fieldValue, rule))
 			)
 		);
-		// Filter out the undefined results
-		const errors = ruleResults.filter((r) => r !== undefined);
 		// Add each error to the error bag
-		errors.forEach((error) => this.addErrorBag({ key: field, value: error }));
+		errors.forEach((error) => {
+			if (!error) return;
+			this.addErrorBag({ key: field, value: error });
+		});
 	}
 
 	/**
@@ -173,15 +174,10 @@ export default class Validator {
 
 		if (!(validatorName in this.validator)) return;
 		if (field.includes("*")) return;
-
-		try {
-			const value = field
-				.split(".")
-				.reduce((acc, part) => acc[part], this.formData);
-			return this.validator[validatorName](value, ...parameters);
-		} catch (e) {
-			console.error(e);
-		}
+		const value = field
+			.split(".")
+			.reduce((acc, part) => acc[part], this.formData);
+		return this.validator[validatorName](value, ...parameters);
 	}
 
 	/**
@@ -204,14 +200,7 @@ export default class Validator {
 	/**
 	 * To add error to errorBag object
 	 */
-	private addErrorBag({
-		key,
-		value,
-	}: {
-		key: string;
-		value: string | undefined;
-	}) {
-		if (!value) return;
+	private addErrorBag({ key, value }: { key: string; value: string }) {
 		this.errorBag[key]
 			? this.errorBag[key].push(value)
 			: (this.errorBag[key] = [value]);
@@ -250,6 +239,13 @@ export default class Validator {
 	 */
 	public fail() {
 		return !this.pass();
+	}
+
+	/**
+	 * To clear error from error bags
+	 */
+	public clearErrors() {
+		this.errorBag = {};
 	}
 
 	// Getters & Setters for unit test purpose

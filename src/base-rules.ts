@@ -21,7 +21,7 @@ export const baseValidatorRule = {
 	},
 
 	numeric(value: any) {
-		if (!(value instanceof Number)) {
+		if (typeof value !== "number") {
 			return validatorErrorMessage["numeric"];
 		}
 	},
@@ -47,6 +47,8 @@ export const baseValidatorRule = {
 		}
 	},
 
+	// TODO: add test
+	/*
 	image(value: any) {
 		if (!(value instanceof File)) {
 			return validatorErrorMessage["image"];
@@ -68,6 +70,34 @@ export const baseValidatorRule = {
 			return validatorErrorMessage["image"]
 				.replace("{minSize}", minSize.toString())
 				.replace("{maxSize}", maxSize.toString());
+		}
+	},
+	*/
+	// END TODO: add test
+
+	email(value: any) {
+		const emailRegex =
+			/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+		if (!emailRegex.test(value)) {
+			return validatorErrorMessage["email"];
+		}
+	},
+
+	min(value: any, minValue: number) {
+		if (Number.isFinite(Number(value))) {
+			const v = parseInt(value);
+			if (v < minValue) {
+				return validatorErrorMessage["min"]
+					.replace("{minSize}", minValue.toString())
+					.replace("{value}", v.toString());
+			}
+		} else if (typeof value === "string") {
+			const v = value.length;
+			if (v < minValue) {
+				return validatorErrorMessage["min"]
+					.replace("{minSize}", minValue.toString())
+					.replace("{value}", v.toString());
+			}
 		}
 	},
 };
