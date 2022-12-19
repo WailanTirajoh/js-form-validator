@@ -6,6 +6,13 @@
 	"main": "./dist/js-formdata-validator.umd.cjs",
 	"module": "./dist/js-formdata-validator.js",
 	"types": "./dist/index.d.ts",
+	"keywords": [
+		"JS",
+		"Form",
+		"Validator"
+	],
+	"author": "Wailan Tirajoh",
+	"license": "MIT",
 	"exports": {
 		".": {
 			"import": "./dist/js-formdata-validator.js",
