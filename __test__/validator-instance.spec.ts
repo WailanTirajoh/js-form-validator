@@ -23,20 +23,23 @@ describe("Validator Instance", () => {
 
 	it("validate", async () => {
 		await validator.validate();
-		expect(validator.pass()).toBe(true);
-		expect(validator.fail()).toBe(false);
+		expect(validator.pass()).toBeTruthy();
+		expect(validator.fail()).toBeFalsy();
 		expect(validator.getErrorBag()).toEqual({});
 	});
 
 	it("validate with errors", async () => {
 		validator.getFormData().age = "invalid";
 		await validator.validate();
-		expect(validator.pass()).toBe(false);
-		expect(validator.fail()).toBe(true);
+
+		expect(validator.pass()).toBeFalsy();
+		expect(validator.fail()).toBeTruthy();
+
 		const errors = validator.getErrorBag();
 		expect(errors).toEqual({
 			age: [validatorErrorMessage["integer"]],
 		});
+
 		const failedFields = validator.getFailedFields();
 		expect(failedFields).contain("age");
 		const ageError = validator.getError("age");

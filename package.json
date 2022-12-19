@@ -1,15 +1,15 @@
 {
-	"name": "kl-validator",
+	"name": "js-form-validator",
 	"private": false,
-	"version": "0.0.4",
+	"version": "0.0.1",
 	"type": "module",
-	"main": "./dist/kl-validator.umd.cjs",
-	"module": "./dist/kl-validator.js",
+	"main": "./dist/js-form-validator.umd.cjs",
+	"module": "./dist/js-form-validator.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"import": "./dist/kl-validator.js",
-			"require": "./dist/kl-validator.umd.cjs"
+			"import": "./dist/js-form-validator.js",
+			"require": "./dist/js-form-validator.umd.cjs"
 		}
 	},
 	"scripts": {

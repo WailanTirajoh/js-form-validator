@@ -1,29 +1,29 @@
-# KL Validator
+# JS Form Validator
 
-KL Validator is a simple form data validation library for JavaScript. It provides a set of base rules for checking the type and value of various inputs, and allows you to define custom rules as well.
+JS Form Validator is a simple form data validation library for JavaScript. It provides a set of base rules for checking the type and value of various inputs, and allows you to define custom rules as well.
 
 ## Installation
 
-To install KL Validator, use one of the following package managers:
+To install JS Form Validator, use one of the following package managers:
 
 ```
-npm install --save kl-validator
+npm install --save js-form-validator
 ```
 
 ```
-pnpm add kl-validator
+pnpm add js-form-validator
 ```
 
 ## Usage
 
-To use KL Validator, import the Validator class and create a new instance, passing in an object with the following properties:
+To use JS Form Validator, import the Validator class and create a new instance, passing in an object with the following properties:
 
 - formData: An object containing the form data to be validated.
 - rules: An object specifying the validation rules for each field in the form data. (rules is not required to be pass as an parameter here)
-  Here's an example of how to use KL Validator to validate a form with a required name field:
+  Here's an example of how to use JS Form Validator to validate a form with a required name field:
 
 ```
-import { Validator } from "kl-validator";
+import { Validator } from "js-form-validator";
 
 const formData = {
     name: null,
@@ -68,7 +68,7 @@ if (validator.fail()) {
 
 ## Base Rules
 
-KL Validator provides the following base rules for validating form data:
+JS Form Validator provides the following base rules for validating form data:
 
 - required: checks if the value is undefined, an empty string, or null.
 - array: checks if the value is an instance of the Array class.
@@ -82,7 +82,7 @@ KL Validator provides the following base rules for validating form data:
 
 ## Extends Custom Rules
 
-KL Validator provides extendable custom rule to be runs alongside base rules, heres the code example:
+JS Form Validator provides extendable custom rule to be runs alongside base rules, heres the code example:
 
 ```
 const formData = {
