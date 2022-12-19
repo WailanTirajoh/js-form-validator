@@ -6,8 +6,8 @@ export default defineConfig({
 	build: {
 		lib: {
 			entry: resolve(__dirname, "src/index.ts"),
-			name: "js-form-validator",
-			fileName: "js-form-validator",
+			name: "js-formdata-validator",
+			fileName: "js-formdata-validator",
 		},
 	},
 	plugins: [dts()],

@@ -1,15 +1,15 @@
 {
-	"name": "js-form-validator",
+	"name": "js-formdata-validator",
 	"private": false,
 	"version": "0.0.1",
 	"type": "module",
-	"main": "./dist/js-form-validator.umd.cjs",
-	"module": "./dist/js-form-validator.js",
+	"main": "./dist/js-formdata-validator.umd.cjs",
+	"module": "./dist/js-formdata-validator.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"import": "./dist/js-form-validator.js",
-			"require": "./dist/js-form-validator.umd.cjs"
+			"import": "./dist/js-formdata-validator.js",
+			"require": "./dist/js-formdata-validator.umd.cjs"
 		}
 	},
 	"scripts": {

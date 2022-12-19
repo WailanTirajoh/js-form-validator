@@ -7,11 +7,11 @@ JS Form Validator is a simple form data validation library for JavaScript. It pr
 To install JS Form Validator, use one of the following package managers:
 
 ```
-npm install --save js-form-validator
+npm install --save js-formdata-validator
 ```
 
 ```
-pnpm add js-form-validator
+pnpm add js-formdata-validator
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ To use JS Form Validator, import the Validator class and create a new instance, 
   Here's an example of how to use JS Form Validator to validate a form with a required name field:
 
 ```
-import { Validator } from "js-form-validator";
+import { Validator } from "js-formdata-validator";
 
 const formData = {
     name: null,
