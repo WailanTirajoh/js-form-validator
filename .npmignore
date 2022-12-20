@@ -7,3 +7,8 @@ pnpm-lock.yaml
 **/__test__
 .github
 .vscode
+.editorconfig
+.eslintignore
+.eslintrc.cjs
+.prettierignore
+.prettierrc.json
