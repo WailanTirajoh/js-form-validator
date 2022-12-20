@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "vitest";
 import Validator from "../src/validator";
 import { validatorErrorMessage } from "../src/validator-error-message";
 
-describe("Validator Unit", () => {
+describe("Validator Instance", () => {
 	let validator: Validator;
 
 	beforeEach(() => {
@@ -51,26 +51,7 @@ describe("Validator Unit", () => {
 		expect(error.email).include("The field is not a valid email");
 	});
 
-	it("validate integer", async () => {
-		validator.setRules({
-			age: ["integer"],
-		});
-		await validator.validate();
-		expect(validator.pass()).toBeTruthy();
-		expect(validator.fail()).toBeFalsy();
-	});
-
-	it("validate string that must be an integer", async () => {
-		validator.setRules({
-			name: ["integer"],
-		});
-		await validator.validate();
-		expect(validator.fail()).toBeTruthy();
-		const error = validator.getErrorBag();
-		expect(error.name).include(validatorErrorMessage["integer"]);
-	});
-
-	it("validate custom rules", async () => {
+	it("validate with custom rules", async () => {
 		validator.setRules({
 			age: ["custom"],
 		});
@@ -89,7 +70,7 @@ describe("Validator Unit", () => {
 		expect(error.age).include("Test Error");
 	});
 
-	it("validate dynamic arguments", async () => {
+	it("validate with dynamic arguments", async () => {
 		validator.setRules({
 			age: ["between:24,50"],
 		});
@@ -107,7 +88,7 @@ describe("Validator Unit", () => {
 		expect(error.age).include("The value must between 24 - 50 years old");
 	});
 
-	it("validate nested form data", async () => {
+	it("validate with nested form data", async () => {
 		validator.setFormData({
 			name: "John",
 			age: 30,
@@ -124,7 +105,7 @@ describe("Validator Unit", () => {
 		expect(validator.fail()).toBeTruthy();
 	});
 
-	it("validate deep nested form data", async () => {
+	it("validate with deeply nested form data", async () => {
 		validator
 			.setFormData({
 				name: "John",
@@ -154,7 +135,7 @@ describe("Validator Unit", () => {
 		);
 	});
 
-	it("validate array form data", async () => {
+	it("validate with array form data", async () => {
 		validator
 			.setFormData({
 				name: "John",
@@ -184,38 +165,59 @@ describe("Validator Unit", () => {
 		expect(error["families.2.name"]).include(validatorErrorMessage["string"]);
 	});
 
-	it("validate allowed arguments", async () => {
-		validator
-			.setFormData({
-				jobs: [
-					{
-						status: "started",
-					},
-					{
-						status: "started",
-					},
-					{
-						status: "fail",
-					},
-					{
-						status: "ready",
-					},
-				],
-			})
-			.setRules({
-				["jobs.*.status"]: ["allowed:started,ready,finished"],
-			});
-
+	it("skip on rules that doesnt exists", async () => {
+		validator.setRules({
+			age: ["doesntexists"],
+		});
 		await validator.validate();
-		expect(validator.fail()).toBeTruthy();
-		const error = validator.getErrorBag();
-		expect(error["jobs.2.status"]).include(
-			validatorErrorMessage["allowed"].replace(
-				"{args}",
-				"started, ready, finished"
-			)
-		);
+		console.log(validator.pass());
 	});
 
-	// TODO: test image & image filesize (workaround findings how to mock input image to this spec)
+	it("validate, get failed fields, and get failed field by name", async () => {
+		validator.setRules({
+			email: ["required"],
+		});
+		await validator.validate();
+
+		// Validate
+		expect(validator.pass()).toBeFalsy();
+		expect(validator.fail()).toBeTruthy();
+
+		// Get failed fields
+		const failedFields = validator.getFailedFields();
+		expect(failedFields).toEqual(["email"]);
+
+		// Get failed field by key
+		const emailError = validator.getError("email");
+		expect(emailError).toContain(validatorErrorMessage["required"]);
+	});
+
+	it("get rules", async () => {
+		const rules = {
+			name: ["required"],
+		};
+		validator.setRules(rules);
+		const validatorRules = validator.getRules();
+		expect(validatorRules).toEqual(rules);
+	});
+
+	it("get validator", async () => {
+		validator.setRules({
+			name: ["required"],
+		});
+		validator.getValidator();
+	});
+
+	it("get form data", async () => {
+		validator.setFormData({
+			name: "test",
+		});
+		validator.setRules({
+			name: ["required"],
+		});
+		const formData = validator.getFormData();
+		expect(formData).toEqual({
+			name: "test",
+		});
+	});
 });

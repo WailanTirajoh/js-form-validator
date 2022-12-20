@@ -340,4 +340,6 @@ describe("Validator Base Rule", () => {
 				.replace("{value}", "password".length.toString())
 		);
 	});
+
+	// TODO: test image & image filesize (workaround findings how to mock input image to this spec)
 });
