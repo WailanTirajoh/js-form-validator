@@ -7,7 +7,7 @@ import type {
 	CustomRules,
 } from "./type";
 import { baseValidatorRule } from "./base-rules";
-import ValidatorError from "./error-bag";
+import ValidatorError from "./validator-error";
 
 export default class Validator {
 	// The form data to validate
