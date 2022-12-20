@@ -23,10 +23,10 @@ export default class ValidatorError {
 	}
 
 	public getErrorMessage(): string {
-		return this.errorMessage || this.generateErrorMessage();
+		return this.errorMessage || this.defaultErrorMessage();
 	}
 
-	private generateErrorMessage(): string {
+	private defaultErrorMessage(): string {
 		return `${Object.keys(this.errorBag).length} error occured`;
 	}
 

@@ -230,8 +230,7 @@ describe("Validator Instance", () => {
 			age: ["required"],
 		});
 		await validator.validate();
-		const errorMessage = validator.getErrorMessage();
-		expect(errorMessage).toBe("2 error occured");
+		expect(validator.getErrorMessage()).toBe("2 error occured");
 		const newErrorMessage = "Please fill the form correctly!";
 		validator.setErrorMessage(newErrorMessage);
 		expect(validator.getErrorMessage()).toBe(newErrorMessage);

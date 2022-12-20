@@ -12,13 +12,17 @@ import ValidatorError from "./validator-error";
 export default class Validator {
 	// The form data to validate
 	private formData: FormData;
+
 	// The validation rules to apply to the form data
 	private rules: ValidationRules;
+
 	// The errors found while validating the form data
 	private validatorError: ValidatorError;
+
 	// The validator functions to use for validation, including both base rules and custom rules
 	private validator!: BaseValidatorRule & CustomRules;
 
+	// The flag to stop on first failure
 	public stopOnFirstFailure!: boolean;
 
 	/**
@@ -48,12 +52,16 @@ export default class Validator {
 	 * Validates the form data with the set of given rules.
 	 */
 	public async validate(): Promise<Validator> {
+		// If it stop on first failure, break on when validator has error
 		if (this.stopOnFirstFailure) {
 			for (const rule in this.rules) {
 				if (this.validatorError.hasErrors()) break;
 				await this.validateField({ field: rule, fieldRules: this.rules[rule] });
 			}
-		} else {
+		}
+
+		// Otherwise, use promise all to validate the data concurently
+		else {
 			// Validate each field in the form data with its corresponding rules
 			const fieldPromises = Object.entries(this.rules).map(
 				([field, fieldRules]) => this.validateField({ field, fieldRules })
@@ -129,6 +137,7 @@ export default class Validator {
 		for (const key of fieldKeys) {
 			fieldValue = fieldValue[key];
 		}
+		// If its stop on first failure, await for every validator and break on first error found
 		if (this.stopOnFirstFailure) {
 			for (const rule of fieldRules) {
 				const error = await this.getValidatorResult(field, fieldValue, rule);
@@ -138,6 +147,7 @@ export default class Validator {
 				}
 			}
 		}
+		// Otherwise run promise all to validate it concurently
 		else {
 			// Get the error results of validating each rule for the field
 			const errors = await Promise.all(
@@ -170,12 +180,12 @@ export default class Validator {
 	) {
 		let validatorResult;
 		switch (typeof rule) {
-			// String is a predefined validator function (Can check the function lists on ./validator-gates.ts)
+			// String -> predefined validator function (Can check the function lists on ./validator-gates.ts)
 			case "string": {
 				validatorResult = this.handleStringRule(field, rule);
 				break;
 			}
-			// Its a custom callback function that returns either string if fail / void if success
+			// Function -> custom callback function that returns either errorr message if fail / void if success
 			case "function": {
 				validatorResult = rule(fieldValue, this.formData);
 				break;
@@ -185,6 +195,7 @@ export default class Validator {
 		}
 		return validatorResult;
 	}
+
 	/**
 	 * Handles string rules by parsing the rule string and calling the corresponding
 	 * validator function with the provided arguments.
@@ -207,8 +218,8 @@ export default class Validator {
 	 * Example:
 	 * between:2,3
 	 * Result:
-	 * between
-	 * [2,3]
+	 * validatorName = between
+	 * parameters = [2,3]
 	 * @param rule
 	 */
 	private parseRule(rule: string): [string, string[]] {
@@ -233,6 +244,9 @@ export default class Validator {
 		return this.validatorError.getErrorMessage();
 	}
 
+	/**
+	 * To set custom error message
+	 */
 	public setErrorMessage(errorMessage: string) {
 		return this.validatorError.setErrorMessage(errorMessage);
 	}
