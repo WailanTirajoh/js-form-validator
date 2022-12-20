@@ -1,13 +1,13 @@
 import type {
 	FormData,
 	FormState,
-	ErrorBag,
 	ValidationRule,
 	ValidationRules,
 	BaseValidatorRule,
 	CustomRules,
 } from "./type";
 import { baseValidatorRule } from "./base-rules";
+import ValidationErrorBag from "./error-bag";
 
 export default class Validator {
 	// The form data to validate
@@ -15,7 +15,7 @@ export default class Validator {
 	// The validation rules to apply to the form data
 	private rules: ValidationRules;
 	// The errors found while validating the form data
-	private errorBag: ErrorBag = {};
+	private errorBag: ValidationErrorBag;
 	// The validator functions to use for validation, including both base rules and custom rules
 	private validator!: BaseValidatorRule & CustomRules;
 
@@ -28,6 +28,7 @@ export default class Validator {
 	constructor({ formData, customRules, rules }: FormState) {
 		this.formData = formData;
 		this.rules = rules ?? {};
+		this.errorBag = new ValidationErrorBag();
 		this.mergeCustomRules(customRules);
 	}
 
@@ -37,6 +38,7 @@ export default class Validator {
 	 */
 	public mergeCustomRules(customRules: CustomRules | undefined) {
 		this.setValidator({ ...baseValidatorRule, ...customRules });
+		return this;
 	}
 
 	/**
@@ -131,7 +133,7 @@ export default class Validator {
 		// Add each error to the error bag
 		errors.forEach((error) => {
 			if (!error) return;
-			this.addErrorBag({ key: field, value: error });
+			this.errorBag.add(field, error);
 		});
 	}
 
@@ -198,40 +200,42 @@ export default class Validator {
 	}
 
 	/**
-	 * To add error to errorBag object
-	 */
-	private addErrorBag({ key, value }: { key: string; value: string }) {
-		this.errorBag[key]
-			? this.errorBag[key].push(value)
-			: (this.errorBag[key] = [value]);
-	}
-
-	/**
 	 * To get errorBag
 	 */
 	public getErrorBag() {
-		return this.errorBag;
+		return this.errorBag.getErrorBag();
+	}
+
+	/**
+	 * To get overall error mesasge
+	 */
+	public getErrorMessage() {
+		return this.errorBag.getErrorMessage();
+	}
+
+	public setErrorMessage(errorMessage: string) {
+		return this.errorBag.setErrorMessage(errorMessage);
 	}
 
 	/**
 	 * To get error by field name
 	 */
 	public getError(field: string): string | undefined {
-		return this.errorBag[field]?.[0];
+		return this.errorBag.getErrorBag()[field]?.[0];
 	}
 
 	/**
 	 * To get failed fields
 	 */
 	public getFailedFields(): string[] {
-		return Object.keys(this.errorBag);
+		return Object.keys(this.getErrorBag());
 	}
 
 	/**
 	 * To check if form data is pass the validator
 	 */
 	public pass() {
-		return Object.keys(this.errorBag).length === 0;
+		return Object.keys(this.getErrorBag()).length === 0;
 	}
 
 	/**
@@ -245,7 +249,8 @@ export default class Validator {
 	 * To clear error from error bags
 	 */
 	public clearErrors() {
-		this.errorBag = {};
+		this.errorBag.clearErrorBag();
+		return this;
 	}
 
 	// Getters & Setters for unit test purpose

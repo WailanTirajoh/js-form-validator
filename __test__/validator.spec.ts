@@ -170,7 +170,6 @@ describe("Validator Instance", () => {
 			age: ["doesntexists"],
 		});
 		await validator.validate();
-		console.log(validator.pass());
 	});
 
 	it("validate, get failed fields, and get failed field by name", async () => {
@@ -219,5 +218,22 @@ describe("Validator Instance", () => {
 		expect(formData).toEqual({
 			name: "test",
 		});
+	});
+
+	it("get set & error message", async () => {
+		validator.setFormData({
+			name: null,
+			age: null,
+		});
+		validator.setRules({
+			name: ["required"],
+			age: ["required"],
+		});
+		await validator.validate();
+		const errorMessage = validator.getErrorMessage();
+		expect(errorMessage).toBe("2 error occured");
+		const newErrorMessage = "Please fill the form correctly!";
+		validator.setErrorMessage(newErrorMessage);
+		expect(validator.getErrorMessage()).toBe(newErrorMessage);
 	});
 });

@@ -23,6 +23,11 @@ export type ValidationRules = {
 	[key: string]: ValidationRule[];
 };
 
+export type ValidationError = {
+	errors: ErrorBag;
+	message: string;
+};
+
 export type ErrorBag = {
 	[key: string]: string[];
 };
