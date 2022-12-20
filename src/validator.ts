@@ -19,16 +19,19 @@ export default class Validator {
 	// The validator functions to use for validation, including both base rules and custom rules
 	private validator!: BaseValidatorRule & CustomRules;
 
+	public stopOnFirstFailure!: boolean;
+
 	/**
 	 * Constructor for the Validator class.
 	 * @param formData The form data to validate.
 	 * @param customRules Custom validation rules to use.
 	 * @param rules Validation rules to apply to the form data.
 	 */
-	constructor({ formData, customRules, rules }: FormState) {
+	constructor({ formData, customRules, rules, stopOnFirstFailure }: FormState) {
 		this.formData = formData;
 		this.rules = rules ?? {};
 		this.validatorError = new ValidatorError();
+		this.stopOnFirstFailure = stopOnFirstFailure ?? false;
 		this.mergeCustomRules(customRules);
 	}
 
@@ -45,12 +48,18 @@ export default class Validator {
 	 * Validates the form data with the set of given rules.
 	 */
 	public async validate(): Promise<Validator> {
-		// Validate each field in the form data with its corresponding rules
-		const fieldPromises = Object.entries(this.rules).map(
-			([field, fieldRules]) => this.validateField({ field, fieldRules })
-		);
-		// Wait for all field validation promises to complete
-		await Promise.all(fieldPromises);
+		if (this.stopOnFirstFailure) {
+			for (const rule in this.rules) {
+				if (this.validatorError.hasErrors()) break;
+				await this.validateField({ field: rule, fieldRules: this.rules[rule] });
+			}
+		} else {
+			// Validate each field in the form data with its corresponding rules
+			const fieldPromises = Object.entries(this.rules).map(
+				([field, fieldRules]) => this.validateField({ field, fieldRules })
+			);
+			await Promise.all(fieldPromises);
+		}
 		return this;
 	}
 
@@ -120,21 +129,32 @@ export default class Validator {
 		for (const key of fieldKeys) {
 			fieldValue = fieldValue[key];
 		}
-		// Get the error results of validating each rule for the field
-		const errors = await Promise.all(
-			fieldRules.map((rule) =>
-				// If the validator result is a promise, return it directly,
-				// otherwise wrap it in a resolved promise
-				typeof this.getValidatorResult(field, fieldValue, rule) === "object"
-					? this.getValidatorResult(field, fieldValue, rule)
-					: Promise.resolve(this.getValidatorResult(field, fieldValue, rule))
-			)
-		);
-		// Add each error to the error bag
-		errors.forEach((error) => {
-			if (!error) return;
-			this.validatorError.add(field, error);
-		});
+		if (this.stopOnFirstFailure) {
+			for (const rule of fieldRules) {
+				const error = await this.getValidatorResult(field, fieldValue, rule);
+				if (error) {
+					this.validatorError.add(field, error);
+					break;
+				}
+			}
+		}
+		else {
+			// Get the error results of validating each rule for the field
+			const errors = await Promise.all(
+				fieldRules.map((rule) =>
+					// If the validator result is a promise, return it directly,
+					// otherwise wrap it in a resolved promise
+					typeof this.getValidatorResult(field, fieldValue, rule) === "object"
+						? this.getValidatorResult(field, fieldValue, rule)
+						: Promise.resolve(this.getValidatorResult(field, fieldValue, rule))
+				)
+			);
+			// Add each error to the error bag
+			errors.forEach((error) => {
+				if (!error) return;
+				this.validatorError.add(field, error);
+			});
+		}
 	}
 
 	/**

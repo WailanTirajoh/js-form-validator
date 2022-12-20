@@ -236,4 +236,19 @@ describe("Validator Instance", () => {
 		validator.setErrorMessage(newErrorMessage);
 		expect(validator.getErrorMessage()).toBe(newErrorMessage);
 	});
+
+	it("stop on first failure", async () => {
+		validator.stopOnFirstFailure = true;
+		validator.setFormData({
+			name: 123,
+			age: null,
+		});
+		validator.setRules({
+			name: ["required", "string"],
+			age: ["required"],
+		});
+		await validator.validate();
+		const errorBag = validator.getErrorBag();
+		expect(errorBag.name).contain(validatorErrorMessage["string"]);
+	});
 });

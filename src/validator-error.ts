@@ -29,4 +29,8 @@ export default class ValidatorError {
 	private generateErrorMessage(): string {
 		return `${Object.keys(this.errorBag).length} error occured`;
 	}
+
+	public hasErrors() {
+		return Object.keys(this.errorBag).length > 0;
+	}
 }

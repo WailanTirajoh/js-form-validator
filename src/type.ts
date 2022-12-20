@@ -40,4 +40,5 @@ export type FormState = {
 	formData: FormData;
 	rules?: ValidationRules;
 	customRules?: CustomRules;
+	stopOnFirstFailure?: boolean;
 };
