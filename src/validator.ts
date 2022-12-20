@@ -7,7 +7,7 @@ import type {
 	CustomRules,
 } from "./type";
 import { baseValidatorRule } from "./base-rules";
-import ValidationErrorBag from "./error-bag";
+import ValidatorError from "./error-bag";
 
 export default class Validator {
 	// The form data to validate
@@ -15,7 +15,7 @@ export default class Validator {
 	// The validation rules to apply to the form data
 	private rules: ValidationRules;
 	// The errors found while validating the form data
-	private errorBag: ValidationErrorBag;
+	private validatorError: ValidatorError;
 	// The validator functions to use for validation, including both base rules and custom rules
 	private validator!: BaseValidatorRule & CustomRules;
 
@@ -28,7 +28,7 @@ export default class Validator {
 	constructor({ formData, customRules, rules }: FormState) {
 		this.formData = formData;
 		this.rules = rules ?? {};
-		this.errorBag = new ValidationErrorBag();
+		this.validatorError = new ValidatorError();
 		this.mergeCustomRules(customRules);
 	}
 
@@ -133,7 +133,7 @@ export default class Validator {
 		// Add each error to the error bag
 		errors.forEach((error) => {
 			if (!error) return;
-			this.errorBag.add(field, error);
+			this.validatorError.add(field, error);
 		});
 	}
 
@@ -203,25 +203,25 @@ export default class Validator {
 	 * To get errorBag
 	 */
 	public getErrorBag() {
-		return this.errorBag.getErrorBag();
+		return this.validatorError.getErrorBag();
 	}
 
 	/**
 	 * To get overall error mesasge
 	 */
 	public getErrorMessage() {
-		return this.errorBag.getErrorMessage();
+		return this.validatorError.getErrorMessage();
 	}
 
 	public setErrorMessage(errorMessage: string) {
-		return this.errorBag.setErrorMessage(errorMessage);
+		return this.validatorError.setErrorMessage(errorMessage);
 	}
 
 	/**
 	 * To get error by field name
 	 */
 	public getError(field: string): string | undefined {
-		return this.errorBag.getErrorBag()[field]?.[0];
+		return this.validatorError.getErrorBag()[field]?.[0];
 	}
 
 	/**
@@ -249,7 +249,7 @@ export default class Validator {
 	 * To clear error from error bags
 	 */
 	public clearErrors() {
-		this.errorBag.clearErrorBag();
+		this.validatorError.clearErrorBag();
 		return this;
 	}
 

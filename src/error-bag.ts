@@ -1,6 +1,6 @@
 import type { ErrorBag } from "./type";
 
-export default class ValidationErrorBag {
+export default class ValidatorError {
 	private errorMessage: string | undefined;
 	private errorBag: ErrorBag = {};
 
