@@ -128,9 +128,9 @@ const validator = new Validator({
 })
 validator.mergeCustomRules({
     ageBetween(value, paramA, paramB) {
-        // paramA will be 25
+        // paramA will be 26
         // paramB will be 50
-        if (value < 26 || value > 50) {
+        if (value < paramA || value > paramB) {
             return `Age must be between ${paramA} - ${paramB}`;
         }
     },
