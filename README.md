@@ -79,6 +79,8 @@ JS Form Validator provides the following base rules for validating form data:
 - allowed: checks if the value is included in a list of allowed values passed as arguments to the function.
 - image: checks if the value is an instance of the File class, and also checks if the file's MIME type starts with "image/".
 - size: checks if the value is an instance of the File class, and also checks if the file's size is within a specified range.
+- email: checks if the value is an email value
+- min: checks if the value is more than min value
 
 ## Extends Custom Rules
 
