@@ -32,7 +32,7 @@ export default class Validator {
 	 * @param rules Validation rules to apply to the form data.
 	 */
 	constructor({ formData, customRules, rules, stopOnFirstFailure }: FormState) {
-		this.formData = formData;
+		this.formData = formData ?? {};
 		this.rules = rules ?? {};
 		this.validatorError = new ValidatorError();
 		this.stopOnFirstFailure = stopOnFirstFailure ?? false;
@@ -295,6 +295,11 @@ export default class Validator {
 	public setFormData(formData: FormData) {
 		this.formData = formData;
 		return this;
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public setFormKeyValue(key: string, value: any) {
+		this.formData[key] = value;
 	}
 
 	public getValidator(): BaseValidatorRule & CustomRules {

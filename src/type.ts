@@ -37,7 +37,7 @@ export type FormData = {
 };
 
 export type FormState = {
-	formData: FormData;
+	formData?: FormData;
 	rules?: ValidationRules;
 	customRules?: CustomRules;
 	stopOnFirstFailure?: boolean;

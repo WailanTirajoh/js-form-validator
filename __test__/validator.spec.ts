@@ -6,12 +6,11 @@ describe("Validator Instance", () => {
 	let validator: Validator;
 
 	beforeEach(() => {
-		validator = new Validator({
-			formData: {
-				name: "Wailan",
-				email: null,
-				age: 25,
-			},
+		validator = new Validator({});
+		validator.setFormData({
+			name: "Wailan",
+			email: null,
+			age: 25,
 		});
 	});
 
@@ -249,5 +248,19 @@ describe("Validator Instance", () => {
 		await validator.validate();
 		const errorBag = validator.getErrorBag();
 		expect(errorBag.name).contain(validatorErrorMessage["string"]);
+	});
+
+	it("change key value and validate the data", async () => {
+		validator.setFormKeyValue("name", null);
+		validator.setRules({
+			name: ["required"],
+		});
+
+		await validator.validate();
+		const errorBag = validator.getErrorBag();
+		expect(errorBag.name).contain(validatorErrorMessage["required"]);
+
+		const formData = validator.getFormData();
+		expect(formData.name).toBe(null);
 	});
 });
