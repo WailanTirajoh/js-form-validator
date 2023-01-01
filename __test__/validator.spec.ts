@@ -71,20 +71,20 @@ describe("Validator Instance", () => {
 
 	it("validate with dynamic arguments", async () => {
 		validator.setRules({
-			age: ["between:24,50"],
+			age: ["between:26,50"],
 		});
 		validator.mergeCustomRules({
 			async between(value, firstValue, secondValue) {
 				await new Promise((resolve) => setTimeout(resolve, 1000));
-				if (value > firstValue && value < secondValue) {
-					return "The value must between 24 - 50 years old";
+				if (value <= firstValue || value >= secondValue) {
+					return "The value must between 26 - 50 years old";
 				}
 			},
 		});
 		await validator.validate();
 		expect(validator.fail()).toBeTruthy();
 		const error = validator.getErrorBag();
-		expect(error.age).include("The value must between 24 - 50 years old");
+		expect(error.age).include("The value must between 26 - 50 years old");
 	});
 
 	it("validate with nested form data", async () => {
