@@ -18,6 +18,10 @@ export default class ValidatorError {
 		return this.errorBag;
 	}
 
+	public setFieldErrors(field: string, errors: string[]) {
+		this.errorBag[field] = errors;
+	}
+
 	public setErrorMessage(errorMessage: string) {
 		this.errorMessage = errorMessage;
 	}

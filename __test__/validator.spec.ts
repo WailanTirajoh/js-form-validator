@@ -263,4 +263,25 @@ describe("Validator Instance", () => {
 		const formData = validator.getFormData();
 		expect(formData.name).toBe(null);
 	});
+
+	it("set field errors", async () => {
+		validator.stopOnFirstFailure = true;
+		validator.setFormData({
+			name: 123,
+			age: null,
+		});
+		validator.setRules({
+			name: ["required", "string"],
+			age: ["required"],
+		});
+		await validator.validate();
+		const errorBag = validator.getErrorBag();
+		expect(errorBag.name).contain(validatorErrorMessage["string"]);
+
+		validator.clearErrors();
+
+		validator.setFieldErrors("name", ["testing error"]);
+		const newErrorBag = validator.getErrorBag();
+		expect(newErrorBag.name).contain("testing error");
+	});
 });

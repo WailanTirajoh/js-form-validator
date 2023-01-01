@@ -297,6 +297,10 @@ export default class Validator {
 		return this;
 	}
 
+	public setFieldErrors(field: string, fieldErrors: string[]) {
+		this.validatorError.setFieldErrors(field, fieldErrors);
+	}
+
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public setFormKeyValue(key: string, value: any) {
 		this.formData[key] = value;
