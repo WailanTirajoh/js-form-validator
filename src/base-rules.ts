@@ -100,4 +100,22 @@ export const baseValidatorRule = {
 			}
 		}
 	},
+
+	max(value: any, maxValue: number) {
+		if (Number.isFinite(Number(value))) {
+			const v = parseInt(value);
+			if (v > maxValue) {
+				return validatorErrorMessage["max"]
+					.replace("{maxSize}", maxValue.toString())
+					.replace("{value}", v.toString());
+			}
+		} else if (typeof value === "string") {
+			const v = value.length;
+			if (v > maxValue) {
+				return validatorErrorMessage["max"]
+					.replace("{maxSize}", maxValue.toString())
+					.replace("{value}", v.toString());
+			}
+		}
+	},
 };
