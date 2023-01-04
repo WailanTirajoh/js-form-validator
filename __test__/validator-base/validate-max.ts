@@ -46,4 +46,19 @@ export default () => {
 
 		expect(error.age).include(errorMessage);
 	});
+	it("validate max length of string field that pass", async () => {
+		const MAX_LENGTH_PASS = 8;
+		const VALUE = "password";
+
+		validator
+			.setFormData({
+				password: VALUE,
+			})
+			.setRules({
+				password: [`max:${MAX_LENGTH_PASS}`],
+			});
+
+		await validator.validate();
+		expect(validator.pass()).toBeTruthy();
+	});
 };
