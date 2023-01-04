@@ -2,6 +2,8 @@ import { describe, it, expect, beforeEach } from "vitest";
 import Validator from "../src/validator";
 import { validatorErrorMessage } from "../src/validator-error-message";
 
+import validateMax from "./validator-base/validate-max";
+
 describe("Validator Base Rule", () => {
 	let validator: Validator;
 
@@ -340,6 +342,8 @@ describe("Validator Base Rule", () => {
 				.replace("{value}", "password".length.toString())
 		);
 	});
+
+	validateMax();
 
 	// TODO: test image & image filesize (workaround findings how to mock input image to this spec)
 });
