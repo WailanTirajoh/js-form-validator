@@ -24,4 +24,26 @@ export default () => {
 		expect(validator.pass()).toBeTruthy();
 	});
 
+	it("validate max field that fail", async () => {
+		const AGE = 21;
+		const MAX_AGE = 20;
+		validator
+			.setFormData({
+				age: AGE,
+			})
+			.setRules({
+				age: [`max:${MAX_AGE}`],
+			});
+
+		await validator.validate();
+
+		expect(validator.pass()).toBeFalsy();
+
+		const error = validator.getErrorBag();
+		const errorMessage = validatorErrorMessage["max"]
+			.replace("{maxSize}", MAX_AGE.toString())
+			.replace("{value}", AGE.toString());
+
+		expect(error.age).include(errorMessage);
+	});
 };
