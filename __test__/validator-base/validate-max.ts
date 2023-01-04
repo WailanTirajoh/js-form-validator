@@ -46,6 +46,7 @@ export default () => {
 
 		expect(error.age).include(errorMessage);
 	});
+
 	it("validate max length of string field that pass", async () => {
 		const MAX_LENGTH_PASS = 8;
 		const VALUE = "password";
@@ -60,5 +61,28 @@ export default () => {
 
 		await validator.validate();
 		expect(validator.pass()).toBeTruthy();
+	});
+
+	it("validate max length of string field that fail", async () => {
+		const MAX_LENGTH_PASS = 6;
+		const VALUE = "password";
+
+		validator
+			.setFormData({
+				password: "password",
+			})
+			.setRules({
+				password: [`max:${MAX_LENGTH_PASS}`],
+			});
+
+		await validator.validate();
+		expect(validator.pass()).toBeFalsy();
+
+		const error = validator.getErrorBag();
+		const errorMessage = validatorErrorMessage["max"]
+			.replace("{maxSize}", MAX_LENGTH_PASS.toString())
+			.replace("{value}", VALUE.length.toString());
+
+		expect(error.password).include(errorMessage);
 	});
 };
