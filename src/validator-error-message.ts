@@ -12,4 +12,5 @@ export const validatorErrorMessage: Record<keyof BaseValidatorRule, string> = {
 	["allowed"]: `The field must be one of the following: {args}`,
 	["email"]: `The field is not a valid email address`,
 	["min"]: `The field has minimum of {minSize} but it got value {value}`,
+	["max"]: `The field has maximum of {maxSize} but it got value {value}`,
 };
