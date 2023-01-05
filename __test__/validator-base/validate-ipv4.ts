@@ -25,4 +25,23 @@ export default () => {
 		expect(validator.pass()).toBeTruthy();
 	});
 
+	it("validate ip address v4 that fail", async () => {
+		const IP_ADDRESS_V4 = "a.b.c.d";
+		validator
+			.setFormData({
+				ipV4: IP_ADDRESS_V4,
+			})
+			.setRules({
+				ipV4: ["ipv4"],
+			});
+
+		await validator.validate();
+
+		expect(validator.pass()).toBeFalsy();
+
+		const error = validator.getErrorBag();
+		const errorMessage = validatorErrorMessage["ipv4"];
+
+		expect(error.ipV4).include(errorMessage);
+	});
 };
