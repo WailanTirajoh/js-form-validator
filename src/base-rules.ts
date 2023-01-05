@@ -118,4 +118,15 @@ export const baseValidatorRule = {
 			}
 		}
 	},
+
+	ipv4(value: any) {
+		const IP_V4_REGEX =
+			"(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}";
+
+		const isValidIpV4 = new RegExp(`^${IP_V4_REGEX}$`).test(value.toString());
+
+		if (!isValidIpV4) {
+			return validatorErrorMessage["ipv4"];
+		}
+	},
 };
