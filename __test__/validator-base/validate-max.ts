@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { it, expect, beforeEach } from "vitest";
 import Validator from "../../src/validator";
 import { validatorErrorMessage } from "../../src/validator-error-message";
 
