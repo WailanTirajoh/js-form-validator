@@ -3,7 +3,8 @@ import Validator from "../src/validator";
 import { validatorErrorMessage } from "../src/validator-error-message";
 
 import validateMax from "./validator-base/validate-max";
-import validateIpV4 from './validator-base/validate-ipv4'
+import validateIpV4 from "./validator-base/validate-ipv4";
+import validateIpV6 from "./validator-base/validate-ipv6";
 
 describe("Validator Base Rule", () => {
 	let validator: Validator;
@@ -345,8 +346,8 @@ describe("Validator Base Rule", () => {
 	});
 
 	validateMax();
-
 	validateIpV4();
+	validateIpV6();
 
 	// TODO: test image & image filesize (workaround findings how to mock input image to this spec)
 });

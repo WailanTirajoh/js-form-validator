@@ -14,4 +14,5 @@ export const validatorErrorMessage: Record<keyof BaseValidatorRule, string> = {
 	["min"]: `The field has minimum of {minSize} but it got value {value}`,
 	["max"]: `The field has maximum of {maxSize} but it got value {value}`,
 	["ipv4"]: `The field must be an IPv4 address`,
+	["ipV6"]: `The field must be an IPv6 address`,
 };
