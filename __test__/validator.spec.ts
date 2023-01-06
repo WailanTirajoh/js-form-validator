@@ -6,7 +6,7 @@ describe("Validator Instance", () => {
 	let validator: Validator;
 
 	beforeEach(() => {
-		validator = new Validator({});
+		validator = new Validator();
 		validator.setFormData({
 			name: "Wailan",
 			email: null,

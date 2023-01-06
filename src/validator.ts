@@ -31,7 +31,7 @@ export default class Validator {
 	 * @param customRules Custom validation rules to use.
 	 * @param rules Validation rules to apply to the form data.
 	 */
-	constructor({ formData, customRules, rules, stopOnFirstFailure }: FormState) {
+	constructor({ formData, customRules, rules, stopOnFirstFailure }: FormState = {}) {
 		this.formData = formData ?? {};
 		this.rules = rules ?? {};
 		this.validatorError = new ValidatorError();
