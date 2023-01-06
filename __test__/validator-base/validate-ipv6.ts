@@ -25,4 +25,24 @@ export default () => {
 
 		expect(validator.pass()).toBeTruthy();
 	});
+
+	it("validate ip address v6 that fail", async () => {
+		const IP_ADDRESS_V6 = "192.168.1.1";
+		validator
+			.setFormData({
+				ipV6: IP_ADDRESS_V6,
+			})
+			.setRules({
+				ipV6: ["ipV6"],
+			});
+
+		await validator.validate();
+
+		expect(validator.pass()).toBeFalsy();
+
+		const error = validator.getErrorBag();
+		const errorMessage = validatorErrorMessage["ipV6"];
+
+		expect(error.ipV6).include(errorMessage);
+	});
 };
