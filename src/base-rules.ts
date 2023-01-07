@@ -139,4 +139,10 @@ export const baseValidatorRule = {
 			return validatorErrorMessage["ipV6"];
 		}
 	},
+
+	accepted(value: any) {
+		if (!["yes", "on", 1, true].includes(value)) {
+			return validatorErrorMessage["accepted"];
+		}
+	},
 };
