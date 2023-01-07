@@ -130,13 +130,13 @@ export const baseValidatorRule = {
 		}
 	},
 
-	ipV6(value: any) {
+	ipv6(value: any) {
 		const IP_V6_REGEX = "((([0-9a-fA-F]){1,4}):){7}([0-9a-fA-F]){1,4}";
 
 		const isValidIpV6 = new RegExp(`^${IP_V6_REGEX}$`).test(value.toString());
 
 		if (!isValidIpV6) {
-			return validatorErrorMessage["ipV6"];
+			return validatorErrorMessage["ipv6"];
 		}
 	},
 
