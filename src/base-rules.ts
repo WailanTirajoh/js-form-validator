@@ -145,4 +145,10 @@ export const baseValidatorRule = {
 			return validatorErrorMessage["accepted"];
 		}
 	},
+
+	declined(value: any) {
+		if (!["no", "off", 0, false].includes(value)) {
+			return validatorErrorMessage["declined"];
+		}
+	},
 };

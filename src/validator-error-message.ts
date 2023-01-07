@@ -16,4 +16,5 @@ export const validatorErrorMessage: Record<keyof BaseValidatorRule, string> = {
 	["ipv4"]: `The field must be an IPv4 address`,
 	["ipV6"]: `The field must be an IPv6 address`,
 	["accepted"]: `The field must be accepted`,
+	["declined"]: `The field must be declined`,
 };

@@ -1,6 +1,7 @@
 import { describe } from "vitest";
 
 import validateAccepted from "./validator-base/validate-accepted";
+import validateDeclined from "./validator-base/validate-declined";
 import validateAllowed from "./validator-base/validate-allowed";
 import validateArray from "./validator-base/validate-array";
 import validateBoolean from "./validator-base/validate-boolean";
@@ -16,6 +17,7 @@ import validateString from "./validator-base/validate-string";
 
 describe("Validator Base Rule", () => {
 	validateAccepted();
+	validateDeclined();
 	validateAllowed();
 	validateArray();
 	validateBoolean();
