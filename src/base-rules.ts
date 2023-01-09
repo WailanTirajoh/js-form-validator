@@ -7,43 +7,43 @@ export interface BaseValidatorRuleParam {
 	formdata: FormData;
 }
 export const baseValidatorRule = {
-	required({ value, formdata }: BaseValidatorRuleParam) {
+	required({ value }: BaseValidatorRuleParam) {
 		if (value === undefined || value === "" || value === null) {
 			return validatorErrorMessage["required"];
 		}
 	},
 
-	array({ value, formdata }: BaseValidatorRuleParam) {
+	array({ value }: BaseValidatorRuleParam) {
 		if (!(value instanceof Array)) {
 			return validatorErrorMessage["array"];
 		}
 	},
 
-	integer({ value, formdata }: BaseValidatorRuleParam) {
+	integer({ value }: BaseValidatorRuleParam) {
 		if (!Number.isInteger(value)) {
 			return validatorErrorMessage["integer"];
 		}
 	},
 
-	numeric({ value, formdata }: BaseValidatorRuleParam) {
+	numeric({ value }: BaseValidatorRuleParam) {
 		if (typeof value !== "number") {
 			return validatorErrorMessage["numeric"];
 		}
 	},
 
-	string({ value, formdata }: BaseValidatorRuleParam) {
+	string({ value }: BaseValidatorRuleParam) {
 		if (typeof value !== "string") {
 			return validatorErrorMessage["string"];
 		}
 	},
 
-	boolean({ value, formdata }: BaseValidatorRuleParam) {
+	boolean({ value }: BaseValidatorRuleParam) {
 		if (typeof value !== "boolean") {
 			return validatorErrorMessage["boolean"];
 		}
 	},
 
-	allowed({ value, formdata }: BaseValidatorRuleParam, ...args: any[]) {
+	allowed({ value }: BaseValidatorRuleParam, ...args: any[]) {
 		if (!args.includes(value)) {
 			return validatorErrorMessage["allowed"].replace(
 				"{args}",
@@ -54,7 +54,7 @@ export const baseValidatorRule = {
 
 	// TODO: add test
 	/*
-	image({value, formdata}) {
+	image({value}) {
 		if (!(value instanceof File)) {
 			return validatorErrorMessage["image"];
 		}
@@ -65,7 +65,7 @@ export const baseValidatorRule = {
 		}
 	},
 
-	size({value, formdata}, minSize: number, maxSize: number) {
+	size({value}, minSize: number, maxSize: number) {
 		if (!(value instanceof File)) {
 			return "The field must be an instanceof File";
 		}
@@ -80,7 +80,7 @@ export const baseValidatorRule = {
 	*/
 	// END TODO: add test
 
-	email({ value, formdata }: BaseValidatorRuleParam) {
+	email({ value }: BaseValidatorRuleParam) {
 		const emailRegex =
 			/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 		if (!emailRegex.test(value)) {
@@ -88,7 +88,7 @@ export const baseValidatorRule = {
 		}
 	},
 
-	min({ value, formdata }: BaseValidatorRuleParam, minValue: number) {
+	min({ value }: BaseValidatorRuleParam, minValue: number) {
 		if (Number.isFinite(Number(value))) {
 			const v = parseInt(value);
 			if (v < minValue) {
@@ -106,7 +106,7 @@ export const baseValidatorRule = {
 		}
 	},
 
-	max({ value, formdata }: BaseValidatorRuleParam, maxValue: number) {
+	max({ value }: BaseValidatorRuleParam, maxValue: number) {
 		if (Number.isFinite(Number(value))) {
 			const v = parseInt(value);
 			if (v > maxValue) {
@@ -124,7 +124,7 @@ export const baseValidatorRule = {
 		}
 	},
 
-	ipv4({ value, formdata }: BaseValidatorRuleParam) {
+	ipv4({ value }: BaseValidatorRuleParam) {
 		const IP_V4_REGEX =
 			"(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}";
 
@@ -135,7 +135,7 @@ export const baseValidatorRule = {
 		}
 	},
 
-	ipv6({ value, formdata }: BaseValidatorRuleParam) {
+	ipv6({ value }: BaseValidatorRuleParam) {
 		const IP_V6_REGEX = "((([0-9a-fA-F]){1,4}):){7}([0-9a-fA-F]){1,4}";
 
 		const isValidIpV6 = new RegExp(`^${IP_V6_REGEX}$`).test(value.toString());
@@ -145,13 +145,13 @@ export const baseValidatorRule = {
 		}
 	},
 
-	accepted({ value, formdata }: BaseValidatorRuleParam) {
+	accepted({ value }: BaseValidatorRuleParam) {
 		if (!["yes", "on", 1, true].includes(value)) {
 			return validatorErrorMessage["accepted"];
 		}
 	},
 
-	declined({ value, formdata }: BaseValidatorRuleParam) {
+	declined({ value }: BaseValidatorRuleParam) {
 		if (!["no", "off", 0, false].includes(value)) {
 			return validatorErrorMessage["declined"];
 		}
