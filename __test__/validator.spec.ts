@@ -56,7 +56,7 @@ describe("Validator Instance", () => {
 		});
 
 		validator.mergeCustomRules({
-			custom(value) {
+			custom({ value }) {
 				if (value === 25) {
 					return "Test Error";
 				}

@@ -1,8 +1,4 @@
-import {
-	BaseValidatorRule,
-	CustomRules,
-	ValidationRule,
-} from "./type";
+import { BaseValidatorRule, CustomRules, ValidationRule } from "./type";
 import { baseValidatorRule } from "./base-rules";
 import ValidatorError from "./validator-error";
 
@@ -108,7 +104,13 @@ export class FieldValidator {
 	 */
 	private handleStringRule(rule: string) {
 		const [validatorName, parameters] = this.parseRule(rule);
-		return this.validator[validatorName](this.fieldValue, ...parameters);
+		return this.validator[validatorName](
+			{
+				value: this.fieldValue,
+				formdata: this.formData
+			},
+			...parameters
+		);
 	}
 
 	private parseRule(rule: string): [string, string[]] {
