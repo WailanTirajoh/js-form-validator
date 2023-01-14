@@ -31,7 +31,12 @@ export default class Validator {
 	 * @param customRules Custom validation rules to use.
 	 * @param rules Validation rules to apply to the form data.
 	 */
-	constructor({ formData, customRules, rules, stopOnFirstFailure }: FormState = {}) {
+	constructor({
+		formData,
+		customRules,
+		rules,
+		stopOnFirstFailure,
+	}: FormState = {}) {
 		this.formData = formData ?? {};
 		this.rules = rules ?? {};
 		this.validatorError = new ValidatorError();
@@ -210,7 +215,13 @@ export default class Validator {
 		const value = field
 			.split(".")
 			.reduce((acc, part) => acc[part], this.formData);
-		return this.validator[validatorName](value, ...parameters);
+		return this.validator[validatorName](
+			{
+				value: value,
+				formdata: this.formData,
+			},
+			...parameters
+		);
 	}
 
 	/**
