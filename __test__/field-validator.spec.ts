@@ -38,11 +38,17 @@ describe("Validator Instance", () => {
 
 		expect(fieldValidator.pass()).toBeFalsy();
 		expect(fieldValidator.getErrorBag()).toContain(
-			validatorErrorMessage["required"]
+			validatorErrorMessage({
+				fieldName: "field",
+				rule: "required",
+			})
 		);
 
 		expect(fieldValidator.getErrorBag()).toContain(
-			validatorErrorMessage["string"]
+			validatorErrorMessage({
+				fieldName: "field",
+				rule: "string",
+			})
 		);
 	});
 

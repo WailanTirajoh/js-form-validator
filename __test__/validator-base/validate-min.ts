@@ -34,7 +34,10 @@ export default () => {
 		expect(validator.pass()).toBeFalsy();
 		const error = validator.getErrorBag();
 		expect(error.age).include(
-			validatorErrorMessage["min"]
+			validatorErrorMessage({
+				fieldName: "age",
+				rule: "min",
+			})
 				.replace("{minSize}", "20")
 				.replace("{value}", age.toString())
 		);
@@ -64,7 +67,10 @@ export default () => {
 		expect(validator.pass()).toBeFalsy();
 		const error = validator.getErrorBag();
 		expect(error.password).include(
-			validatorErrorMessage["min"]
+			validatorErrorMessage({
+				fieldName: "password",
+				rule: "min",
+			})
 				.replace("{minSize}", "9")
 				.replace("{value}", "password".length.toString())
 		);

@@ -46,7 +46,12 @@ describe("Validator Instance", () => {
 		expect(validator.fail()).toBeTruthy();
 
 		const error = validator.getErrorBag();
-		expect(error.email).include(validatorErrorMessage["required"]);
+		expect(error.email).include(
+			validatorErrorMessage({
+				fieldName: "email",
+				rule: "required",
+			})
+		);
 		expect(error.email).include("The field is not a valid email");
 	});
 
@@ -128,9 +133,17 @@ describe("Validator Instance", () => {
 		await validator.validate();
 		expect(validator.fail()).toBeTruthy();
 		const error = validator.getErrorBag();
-		expect(error["family.wife.age"]).include(validatorErrorMessage["required"]);
+		expect(error["family.wife.age"]).include(
+			validatorErrorMessage({
+				fieldName: "family.wife.age",
+				rule: "required",
+			})
+		);
 		expect(error["family.wife.school.name"]).include(
-			validatorErrorMessage["required"]
+			validatorErrorMessage({
+				fieldName: "family.wife.school.name",
+				rule: "required",
+			})
 		);
 	});
 
@@ -160,8 +173,18 @@ describe("Validator Instance", () => {
 		await validator.validate();
 		expect(validator.fail()).toBeTruthy();
 		const error = validator.getErrorBag();
-		expect(error["families.0.name"]).include(validatorErrorMessage["string"]);
-		expect(error["families.2.name"]).include(validatorErrorMessage["string"]);
+		expect(error["families.0.name"]).include(
+			validatorErrorMessage({
+				fieldName: "families.0.name",
+				rule: "string",
+			})
+		);
+		expect(error["families.2.name"]).include(
+			validatorErrorMessage({
+				fieldName: "families.2.name",
+				rule: "string",
+			})
+		);
 	});
 
 	it("skip on rules that doesnt exists", async () => {
@@ -187,7 +210,12 @@ describe("Validator Instance", () => {
 
 		// Get failed field by key
 		const emailError = validator.getError("email");
-		expect(emailError).toContain(validatorErrorMessage["required"]);
+		expect(emailError).toContain(
+			validatorErrorMessage({
+				fieldName: "email",
+				rule: "required",
+			})
+		);
 	});
 
 	it("get rules", async () => {
@@ -247,7 +275,12 @@ describe("Validator Instance", () => {
 		});
 		await validator.validate();
 		const errorBag = validator.getErrorBag();
-		expect(errorBag.name).contain(validatorErrorMessage["string"]);
+		expect(errorBag.name).contain(
+			validatorErrorMessage({
+				fieldName: "name",
+				rule: "string",
+			})
+		);
 	});
 
 	it("change key value and validate the data", async () => {
@@ -258,7 +291,12 @@ describe("Validator Instance", () => {
 
 		await validator.validate();
 		const errorBag = validator.getErrorBag();
-		expect(errorBag.name).contain(validatorErrorMessage["required"]);
+		expect(errorBag.name).contain(
+			validatorErrorMessage({
+				fieldName: "name",
+				rule: "required",
+			})
+		);
 
 		const formData = validator.getFormData();
 		expect(formData.name).toBe(null);
@@ -276,7 +314,12 @@ describe("Validator Instance", () => {
 		});
 		await validator.validate();
 		const errorBag = validator.getErrorBag();
-		expect(errorBag.name).contain(validatorErrorMessage["string"]);
+		expect(errorBag.name).contain(
+			validatorErrorMessage({
+				fieldName: "name",
+				rule: "string",
+			})
+		);
 
 		validator.clearErrors();
 

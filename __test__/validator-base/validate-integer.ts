@@ -32,7 +32,12 @@ export default () => {
 		await validator.validate();
 		expect(validator.pass()).toBeFalsy();
 		const error1 = validator.getErrorBag();
-		expect(error1.value).include(validatorErrorMessage["integer"]);
+		expect(error1.value).include(
+			validatorErrorMessage({
+				fieldName: "value",
+				rule: "integer",
+			})
+		);
 		validator.clearErrors();
 	});
 
@@ -47,6 +52,11 @@ export default () => {
 		await validator.validate();
 		expect(validator.pass()).toBeFalsy();
 		const error = validator.getErrorBag();
-		expect(error.value).include(validatorErrorMessage["integer"]);
+		expect(error.value).include(
+			validatorErrorMessage({
+				fieldName: "value",
+				rule: "integer",
+			})
+		);
 	});
 };

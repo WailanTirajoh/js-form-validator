@@ -219,6 +219,7 @@ export default class Validator {
 			{
 				value: value,
 				formdata: this.formData,
+				fieldName: field,
 			},
 			...parameters
 		);

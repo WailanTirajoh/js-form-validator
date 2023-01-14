@@ -57,10 +57,10 @@ export default () => {
 		expect(validator.pass()).toBeFalsy();
 		const error = validator.getErrorBag();
 		expect(error["jobs.2.status"]).include(
-			validatorErrorMessage["allowed"].replace(
-				"{args}",
-				["started", "ready", "finished"].join(", ")
-			)
+			validatorErrorMessage({
+				fieldName: "jobs.2.status",
+				rule: "allowed",
+			}).replace("{args}", ["started", "ready", "finished"].join(", "))
 		);
 	});
 };

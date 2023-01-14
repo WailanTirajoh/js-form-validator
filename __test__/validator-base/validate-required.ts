@@ -36,8 +36,23 @@ export default () => {
 		await validator.validate();
 		expect(validator.pass()).toBeFalsy();
 		const error = validator.getErrorBag();
-		expect(error.value).include(validatorErrorMessage["required"]);
-		expect(error.value1).include(validatorErrorMessage["required"]);
-		expect(error.value2).include(validatorErrorMessage["required"]);
+		expect(error.value).include(
+			validatorErrorMessage({
+				fieldName: "value",
+				rule: "required",
+			})
+		);
+		expect(error.value1).include(
+			validatorErrorMessage({
+				fieldName: "value1",
+				rule: "required",
+			})
+		);
+		expect(error.value2).include(
+			validatorErrorMessage({
+				fieldName: "value2",
+				rule: "required",
+			})
+		);
 	});
 };

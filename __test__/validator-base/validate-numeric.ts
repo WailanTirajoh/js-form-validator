@@ -32,7 +32,10 @@ export default () => {
 		await validator.validate();
 		expect(validator.pass()).toBeFalsy();
 		expect(validator.getErrorBag().value).include(
-			validatorErrorMessage["numeric"]
+			validatorErrorMessage({
+				fieldName: "value",
+				rule: "numeric",
+			})
 		);
 	});
 };

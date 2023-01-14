@@ -70,6 +70,11 @@ export default () => {
 		expect(validator.pass()).toBeFalsy();
 
 		const error = validator.getErrorBag();
-		expect(error["key"]).include(validatorErrorMessage["accepted"]);
+		expect(error["key"]).include(
+			validatorErrorMessage({
+				fieldName: "key",
+				rule: "accepted",
+			})
+		);
 	});
 };

@@ -79,6 +79,11 @@ export default () => {
 		expect(validator.pass()).toBeFalsy();
 
 		const error = validator.getErrorBag();
-		expect(error["key"]).include(validatorErrorMessage["declined"]);
+		expect(error["key"]).include(
+			validatorErrorMessage({
+				fieldName: "key",
+				rule: "declined",
+			})
+		);
 	});
 };

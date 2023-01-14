@@ -40,7 +40,10 @@ export default () => {
 		expect(validator.pass()).toBeFalsy();
 
 		const error = validator.getErrorBag();
-		const errorMessage = validatorErrorMessage["ipv4"];
+		const errorMessage = validatorErrorMessage({
+			fieldName: "ipV4",
+			rule: "ipv4",
+		});
 
 		expect(error.ipV4).include(errorMessage);
 	});

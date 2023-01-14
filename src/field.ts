@@ -107,7 +107,8 @@ export class FieldValidator {
 		return this.validator[validatorName](
 			{
 				value: this.fieldValue,
-				formdata: this.formData
+				fieldName: this.fieldName,
+				formdata: this.formData,
 			},
 			...parameters
 		);

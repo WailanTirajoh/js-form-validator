@@ -39,7 +39,17 @@ export default () => {
 		expect(validator.pass()).toBeFalsy();
 		const error = validator.getErrorBag();
 		expect(error.pass).toBeUndefined();
-		expect(error.failA).include(validatorErrorMessage["boolean"]);
-		expect(error.failB).include(validatorErrorMessage["boolean"]);
+		expect(error.failA).include(
+			validatorErrorMessage({
+				fieldName: "failA",
+				rule: "boolean",
+			})
+		);
+		expect(error.failB).include(
+			validatorErrorMessage({
+				fieldName: "failB",
+				rule: "boolean",
+			})
+		);
 	});
 };
