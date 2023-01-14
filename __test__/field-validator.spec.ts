@@ -101,4 +101,39 @@ describe("Validator Instance", () => {
 
 		expect(fieldValidator.getErrorBag()).toContain("just testing");
 	});
+
+	it("set custom field name", async () => {
+		fieldValidator.setFieldName("field");
+		fieldValidator.setFieldValue(null);
+		const formData = {
+			test: "hallo",
+			field: null,
+		};
+
+		fieldValidator.setFieldRules(["required"]);
+
+		fieldValidator.setFormData(formData);
+
+		fieldValidator.setCustomFieldName("test2");
+
+		await fieldValidator.validate();
+
+		const errors = fieldValidator.getErrorBag();
+		const fieldName = "test2";
+		expect(errors).toContain(
+			validatorErrorMessage({
+				fieldName: fieldName,
+				rule: "required",
+			})
+		);
+
+		fieldValidator.setCustomValidatorErrorMessage({
+			["required"]: "The {field} must be filled!",
+		});
+
+		await fieldValidator.validate();
+
+		const errors2 = fieldValidator.getErrorBag();
+		expect(errors2).toContain(`The ${fieldName} must be filled!`);
+	});
 });
