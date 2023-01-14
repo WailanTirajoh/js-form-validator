@@ -42,3 +42,9 @@ export type FormState = {
 	customRules?: CustomRules;
 	stopOnFirstFailure?: boolean;
 };
+
+export type CustomFieldName = {
+	[key: string]: string;
+};
+
+export type CustomValidatorErrorMessage = Record<string, string>;
