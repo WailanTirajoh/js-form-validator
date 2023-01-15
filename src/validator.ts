@@ -5,6 +5,8 @@ import type {
 	ValidationRules,
 	BaseValidatorRule,
 	CustomRules,
+	CustomFieldName,
+	CustomValidatorErrorMessage,
 } from "./type";
 import { baseValidatorRule } from "./base-rules";
 import ValidatorError from "./validator-error";
@@ -24,6 +26,10 @@ export default class Validator {
 
 	// The flag to stop on first failure
 	public stopOnFirstFailure!: boolean;
+
+	private customFieldNames: CustomFieldName = {};
+
+	private customValidatorErrorMessage: CustomValidatorErrorMessage = {};
 
 	/**
 	 * Constructor for the Validator class.
@@ -215,10 +221,19 @@ export default class Validator {
 		const value = field
 			.split(".")
 			.reduce((acc, part) => acc[part], this.formData);
+
+		let fieldName = field;
+
+		if (Object.keys(this.customFieldNames).includes(field)) {
+			fieldName = this.customFieldNames[fieldName];
+		}
+
 		return this.validator[validatorName](
 			{
 				value: value,
 				formdata: this.formData,
+				fieldName: fieldName,
+				customValidatorErrorMessage: this.customValidatorErrorMessage,
 			},
 			...parameters
 		);
@@ -333,6 +348,24 @@ export default class Validator {
 	public setRules(rules: ValidationRules) {
 		this.rules = rules;
 		return this;
+	}
+
+	public setCustomFieldName(customFieldNames: CustomFieldName) {
+		this.customFieldNames = customFieldNames;
+	}
+
+	public getCustomFieldName() {
+		return this.customFieldNames;
+	}
+
+	public setCustomValidatorErrorMessage(
+		customValidatorErrorMessage: CustomValidatorErrorMessage
+	) {
+		this.customValidatorErrorMessage = customValidatorErrorMessage;
+	}
+
+	public getCustomValidatorErrorMessage() {
+		return this.customValidatorErrorMessage;
 	}
 	// End Getters & Setters for unit test
 }

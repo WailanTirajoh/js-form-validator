@@ -41,7 +41,10 @@ export default () => {
 		expect(validator.pass()).toBeFalsy();
 
 		const error = validator.getErrorBag();
-		const errorMessage = validatorErrorMessage["ipv6"];
+		const errorMessage = validatorErrorMessage({
+			fieldName: "ipv6",
+			rule: "ipv6",
+		});
 
 		expect(error.ipv6).include(errorMessage);
 	});

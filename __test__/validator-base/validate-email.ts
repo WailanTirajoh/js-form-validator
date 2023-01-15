@@ -32,6 +32,11 @@ export default () => {
 		await validator.validate();
 		expect(validator.pass()).toBeFalsy();
 		const error = validator.getErrorBag();
-		expect(error.email).include(validatorErrorMessage["email"]);
+		expect(error.email).include(
+			validatorErrorMessage({
+				fieldName: "email",
+				rule: "email",
+			})
+		);
 	});
 };

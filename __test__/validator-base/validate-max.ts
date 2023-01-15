@@ -40,7 +40,10 @@ export default () => {
 		expect(validator.pass()).toBeFalsy();
 
 		const error = validator.getErrorBag();
-		const errorMessage = validatorErrorMessage["max"]
+		const errorMessage = validatorErrorMessage({
+			fieldName: "age",
+			rule: "max",
+		})
 			.replace("{maxSize}", MAX_AGE.toString())
 			.replace("{value}", AGE.toString());
 
@@ -79,7 +82,10 @@ export default () => {
 		expect(validator.pass()).toBeFalsy();
 
 		const error = validator.getErrorBag();
-		const errorMessage = validatorErrorMessage["max"]
+		const errorMessage = validatorErrorMessage({
+			fieldName: "password",
+			rule: "max",
+		})
 			.replace("{maxSize}", MAX_LENGTH_PASS.toString())
 			.replace("{value}", VALUE.length.toString());
 

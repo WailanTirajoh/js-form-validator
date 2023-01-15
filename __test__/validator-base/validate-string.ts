@@ -39,8 +39,20 @@ export default () => {
 		expect(validator.pass()).toBeFalsy();
 		const error = validator.getErrorBag();
 		expect(error.pass).toBeUndefined();
-		expect(error.failA).include(validatorErrorMessage["string"]);
-		expect(error.failB).include(validatorErrorMessage["string"]);
-		expect(error.failC).include(validatorErrorMessage["string"]);
+		expect(error.failA).include(
+			validatorErrorMessage({
+				fieldName: "failA",
+				rule: "string",
+			}));
+		expect(error.failB).include(
+			validatorErrorMessage({
+				fieldName: "failB",
+				rule: "string",
+			}));
+		expect(error.failC).include(
+			validatorErrorMessage({
+				fieldName: "failC",
+				rule: "string",
+			}));
 	});
 };

@@ -1,4 +1,9 @@
-import { BaseValidatorRule, CustomRules, ValidationRule } from "./type";
+import {
+	BaseValidatorRule,
+	CustomRules,
+	CustomValidatorErrorMessage,
+	ValidationRule,
+} from "./type";
 import { baseValidatorRule } from "./base-rules";
 import ValidatorError from "./validator-error";
 
@@ -12,6 +17,10 @@ export class FieldValidator {
 	private validator!: BaseValidatorRule & CustomRules;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private formData: { [key: string]: any };
+
+	private customFieldName?: string;
+
+	private customValidatorErrorMessage: CustomValidatorErrorMessage = {};
 
 	constructor() {
 		this.fieldName = "";
@@ -104,10 +113,13 @@ export class FieldValidator {
 	 */
 	private handleStringRule(rule: string) {
 		const [validatorName, parameters] = this.parseRule(rule);
+
 		return this.validator[validatorName](
 			{
 				value: this.fieldValue,
-				formdata: this.formData
+				fieldName: this.customFieldName || this.fieldName,
+				formdata: this.formData,
+				customValidatorErrorMessage: this.customValidatorErrorMessage,
 			},
 			...parameters
 		);
@@ -145,5 +157,23 @@ export class FieldValidator {
 	private setValidator(validator: BaseValidatorRule & CustomRules) {
 		this.validator = validator;
 		return this;
+	}
+
+	public setCustomFieldName(customFieldName: string) {
+		this.customFieldName = customFieldName;
+	}
+
+	public getCustomFieldName() {
+		return this.customFieldName;
+	}
+
+	public setCustomValidatorErrorMessage(
+		customValidatorErrorMessage: CustomValidatorErrorMessage
+	) {
+		this.customValidatorErrorMessage = customValidatorErrorMessage;
+	}
+
+	public getCustomValidatorErrorMessage() {
+		return this.customValidatorErrorMessage;
 	}
 }
