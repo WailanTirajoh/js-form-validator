@@ -27,8 +27,10 @@ export default class Validator {
 	// The flag to stop on first failure
 	public stopOnFirstFailure!: boolean;
 
+	// The custom field name to show in error message
 	private customFieldNames: CustomFieldName = {};
 
+	// The custom error message to replace the default error message.
 	private customValidatorErrorMessage: CustomValidatorErrorMessage = {};
 
 	/**
