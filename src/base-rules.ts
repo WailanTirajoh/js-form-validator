@@ -126,6 +126,10 @@ export const baseValidatorRule = {
 		{ value, fieldName, customValidatorErrorMessage }: BaseValidatorRuleParam,
 		minValue: number
 	) {
+		if (minValue === undefined) {
+			return "Please define the min value. Example min:26";
+		}
+
 		if (Number.isFinite(Number(value))) {
 			const v = parseInt(value);
 			if (v < minValue) {
@@ -155,6 +159,10 @@ export const baseValidatorRule = {
 		{ value, fieldName, customValidatorErrorMessage }: BaseValidatorRuleParam,
 		maxValue: number
 	) {
+		if (maxValue === undefined) {
+			return "Please define the max value. Example: max:26";
+		}
+
 		if (Number.isFinite(Number(value))) {
 			const v = parseInt(value);
 			if (v > maxValue) {
@@ -188,7 +196,9 @@ export const baseValidatorRule = {
 		const IP_V4_REGEX =
 			"(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}";
 
-		const isValidIpV4 = new RegExp(`^${IP_V4_REGEX}$`).test(value.toString());
+		const isValidIpV4 = new RegExp(`^${IP_V4_REGEX}$`).test(
+			value && value.toString()
+		);
 
 		if (!isValidIpV4) {
 			return validatorErrorMessage({
@@ -206,7 +216,9 @@ export const baseValidatorRule = {
 	}: BaseValidatorRuleParam) {
 		const IP_V6_REGEX = "((([0-9a-fA-F]){1,4}):){7}([0-9a-fA-F]){1,4}";
 
-		const isValidIpV6 = new RegExp(`^${IP_V6_REGEX}$`).test(value.toString());
+		const isValidIpV6 = new RegExp(`^${IP_V6_REGEX}$`).test(
+			value && value.toString()
+		);
 
 		if (!isValidIpV6) {
 			return validatorErrorMessage({

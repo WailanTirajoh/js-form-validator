@@ -6,7 +6,7 @@ type ValidatorErrorMessageParameter = {
 	customValidatorErrorMessage?: CustomValidatorErrorMessage;
 };
 
-const baseValidatorErrorMessage: Record<keyof BaseValidatorRule, string> = {
+export const baseValidatorErrorMessage: Record<keyof BaseValidatorRule, string> = {
 	["required"]: `The {field} cannot be empty`,
 	["array"]: `The {field} must be instance of Array`,
 	["integer"]: `The {field} must be integer`,
