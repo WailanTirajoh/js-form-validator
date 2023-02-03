@@ -14,6 +14,15 @@ npm install --save js-formdata-validator
 pnpm add js-formdata-validator
 ```
 
+## Nuxt 2 Installation
+```
+// nuxt.config.js
+// Add transpile
+build: {
+	transpile: [/js-formdata-validator/],
+},
+```
+
 ## Usage
 
 To use JS Form Validator, import the Validator class and create a new instance, passing in an object with the following properties:
