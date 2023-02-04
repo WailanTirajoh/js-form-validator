@@ -69,4 +69,33 @@ export default () => {
 			);
 		});
 	});
+
+	const testDates = [
+		{ date: "02/04/2023" },
+		{ date: "04/02/2023" },
+		{ date: "2023/02/04" },
+		{ date: "2023-02-04" },
+		{ date: "02-04-2023" },
+		{ date: "04-02-2023" },
+		{ date: "02.04.2023" },
+		{ date: "04.02.2023" },
+		{ date: "02 04 2023" },
+		{ date: "04 02 2023" },
+	];
+
+	testDates.forEach(async (testDate) => {
+		it(`validate date strings that is pass [${testDate.date}]`, async () => {
+			validator
+				.setFormData({
+					value: testDate.date,
+				})
+				.setRules({
+					value: ["date"],
+				});
+
+			await validator.validate();
+
+			expect(validator.pass()).toBeTruthy();
+		});
+	});
 };
