@@ -6,7 +6,10 @@ type ValidatorErrorMessageParameter = {
 	customValidatorErrorMessage?: CustomValidatorErrorMessage;
 };
 
-export const baseValidatorErrorMessage: Record<keyof BaseValidatorRule, string> = {
+export const baseValidatorErrorMessage: Record<
+	keyof BaseValidatorRule,
+	string
+> = {
 	["required"]: `The {field} cannot be empty`,
 	["array"]: `The {field} must be instance of Array`,
 	["integer"]: `The {field} must be integer`,
@@ -21,6 +24,7 @@ export const baseValidatorErrorMessage: Record<keyof BaseValidatorRule, string> 
 	["ipv6"]: `The {field} must be an IPv6 address`,
 	["accepted"]: `The {field} must be accepted`,
 	["declined"]: `The {field} must be declined`,
+	["date"]: `The {field} must be a date`,
 };
 
 export const validatorErrorMessage: (
