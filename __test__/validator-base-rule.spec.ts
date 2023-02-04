@@ -1,10 +1,11 @@
 import { describe } from "vitest";
 
 import validateAccepted from "./validator-base/validate-accepted";
-import validateDeclined from "./validator-base/validate-declined";
 import validateAllowed from "./validator-base/validate-allowed";
 import validateArray from "./validator-base/validate-array";
 import validateBoolean from "./validator-base/validate-boolean";
+import validateDate from "./validator-base/validate-date";
+import validateDeclined from "./validator-base/validate-declined";
 import validateEmail from "./validator-base/validate-email";
 import validateInteger from "./validator-base/validate-integer";
 import validateIpV4 from "./validator-base/validate-ipv4";
@@ -30,4 +31,5 @@ describe("Validator Base Rule", () => {
 	validateNumeric();
 	validateRequired();
 	validateString();
+	validateDate();
 });

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CustomValidatorErrorMessage, FormData } from "./type";
+import isValidDate from "./utils/isValidDate";
 import { validatorErrorMessage } from "./validator-error-message";
 
 export interface BaseValidatorRuleParam {
@@ -252,6 +253,19 @@ export const baseValidatorRule = {
 			return validatorErrorMessage({
 				fieldName: fieldName,
 				rule: "declined",
+				customValidatorErrorMessage,
+			});
+		}
+	},
+
+	date(
+		{ value, fieldName, customValidatorErrorMessage }: BaseValidatorRuleParam,
+		format?: string
+	) {
+		if (!isValidDate(value, format)) {
+			return validatorErrorMessage({
+				fieldName: fieldName,
+				rule: "date",
 				customValidatorErrorMessage,
 			});
 		}
