@@ -45,7 +45,10 @@ function parseDate(input: string, format: string): Date {
 	let i = 0;
 
 	// extract date-part indexes from the format
-	format.replace(/(yyyy|dd|mm)/g, (_, part) => (fmt[part] = i++));
+	format.replace(/(yyyy|dd|mm)/g, (_, part) => {
+		fmt[part] = i++;
+		return ""; //to shut ts error, replace methods wants string as return but we just need to return void
+	});
 
 	return new Date(
 		+parts[fmt["yyyy"]],
