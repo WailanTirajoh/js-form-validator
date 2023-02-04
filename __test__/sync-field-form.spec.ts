@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { Validator } from "../src";
 import { FieldValidator } from "../src/field";
 import { baseValidatorErrorMessage } from "../src/validator-error-message";
@@ -12,7 +12,10 @@ describe("Sync both field & form validator ", () => {
 		validator = new Validator();
 	});
 
-	const predefinedRules = Object.keys(baseValidatorErrorMessage);
+	const rulesWithParam = ["date", "max", "min", "allowed"]; //TODO: test this rules with params manual
+	const predefinedRules = Object.keys(baseValidatorErrorMessage).filter(
+		(rule) => !rulesWithParam.includes(rule)
+	);
 
 	predefinedRules.forEach((rule: string) => {
 		it(`Validate ${rule}`, async () => {

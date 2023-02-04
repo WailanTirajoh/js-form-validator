@@ -13,7 +13,7 @@ export default (dateString: string, dateFormat?: string): boolean => {
 
 	const isDate = isNaN(date.getTime());
 
-	if (!dateFormat) return isDate;
+	if (!dateFormat) return !isDate;
 
 	if (isDate) return false;
 
