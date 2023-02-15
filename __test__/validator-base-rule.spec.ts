@@ -3,6 +3,7 @@ import { describe } from "vitest";
 import validateAccepted from "./validator-base/validate-accepted";
 import validateAllowed from "./validator-base/validate-allowed";
 import validateArray from "./validator-base/validate-array";
+import validateBetween from "./validator-base/validate-between";
 import validateBoolean from "./validator-base/validate-boolean";
 import validateDate from "./validator-base/validate-date";
 import validateDeclined from "./validator-base/validate-declined";
@@ -22,6 +23,7 @@ describe("Validator Base Rule", () => {
 	validateAllowed();
 	validateArray();
 	validateBoolean();
+	validateBetween();
 	validateEmail();
 	validateInteger();
 	validateIpV4();

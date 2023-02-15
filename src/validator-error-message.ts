@@ -25,6 +25,7 @@ export const baseValidatorErrorMessage: Record<
 	["accepted"]: `The {field} must be accepted`,
 	["declined"]: `The {field} must be declined`,
 	["date"]: `The {field} must be a date`,
+	["between"]: `The {field} must between {min} and {max} but it got value {value}`,
 };
 
 export const validatorErrorMessage: (

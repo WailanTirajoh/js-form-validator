@@ -270,4 +270,40 @@ export const baseValidatorRule = {
 			});
 		}
 	},
+
+	between(
+		{ value, fieldName, customValidatorErrorMessage }: BaseValidatorRuleParam,
+		min: number,
+		max: number
+	) {
+		if (min === undefined || max === undefined) {
+			return "Please define the min & max value. Example between:1,100";
+		}
+
+		if (Number.isFinite(Number(value))) {
+			const v = parseInt(value);
+			if (v < min || v > max) {
+				return validatorErrorMessage({
+					fieldName: fieldName,
+					rule: "between",
+					customValidatorErrorMessage,
+				})
+					.replace("{min}", min.toString())
+					.replace("{max}", max.toString())
+					.replace("{value}", v.toString());
+			}
+		} else if (typeof value === "string") {
+			const v = value.length;
+			if (v < min || v > max) {
+				return validatorErrorMessage({
+					fieldName: fieldName,
+					rule: "between",
+					customValidatorErrorMessage,
+				})
+					.replace("{min}", min.toString())
+					.replace("{max}", max.toString())
+					.replace("{value}", v.toString());
+			}
+		}
+	},
 };
