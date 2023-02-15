@@ -1,14 +1,14 @@
+import { baseValidatorRule } from "./base-rules";
 import type {
+	BaseValidatorRule,
+	CustomFieldName,
+	CustomRules,
+	CustomValidatorErrorMessage,
 	FormData,
 	FormState,
 	ValidationRule,
 	ValidationRules,
-	BaseValidatorRule,
-	CustomRules,
-	CustomFieldName,
-	CustomValidatorErrorMessage,
 } from "./type";
-import { baseValidatorRule } from "./base-rules";
 import ValidatorError from "./validator-error";
 
 export default class Validator {
