@@ -90,6 +90,14 @@ JS Form Validator provides the following base rules for validating form data:
 - size: checks if the value is an instance of the File class, and also checks if the file's size is within a specified range.
 - email: checks if the value is an email value
 - min: checks if the value is more than min value
+- max: checks if the value is below the max value
+- accepted: check if the value is accepted ("yes", "on", 1, true)
+- between: check if the value is between 2 arg (between:1,3)
+- declined: check if the value is declined ("no", "off", 0, false)
+- ipv4: check if the value is ipv4
+- ipv6: check if the value is ipv6
+- date: check if the value type is date
+
 
 ## Extends Custom Rules
 
