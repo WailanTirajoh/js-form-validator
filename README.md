@@ -79,24 +79,31 @@ if (validator.fail()) {
 
 JS Form Validator provides the following base rules for validating form data:
 
-- required: checks if the value is undefined, an empty string, or null.
-- array: checks if the value is an instance of the Array class.
-- integer: checks if the value is an integer using the Number.isInteger() method.
-- numeric: checks if the value is an instance of the Number class.
-- string: checks if the value is a string.
-- boolean: checks if the value is a boolean.
-- allowed: checks if the value is included in a list of allowed values passed as arguments to the function.
-- image: checks if the value is an instance of the File class, and also checks if the file's MIME type starts with "image/".
-- size: checks if the value is an instance of the File class, and also checks if the file's size is within a specified range.
-- email: checks if the value is an email value
-- min: checks if the value is more than min value
-- max: checks if the value is below the max value
-- accepted: check if the value is accepted ("yes", "on", 1, true)
-- between: check if the value is between 2 arg (between:1,3)
-- declined: check if the value is declined ("no", "off", 0, false)
-- ipv4: check if the value is ipv4
-- ipv6: check if the value is ipv6
-- date: check if the value type is date
+| Validation Type | Description                                                                                                      |
+| --------------- | ---------------------------------------------------------------------------------------------------------------- |
+| required        | Checks if the value is undefined, an empty string, or null.                                                     |
+| array           | Checks if the value is an instance of the Array class.                                                            |
+| integer         | Checks if the value is an integer using the Number.isInteger() method.                                            |
+| numeric         | Checks if the value is an instance of the Number class.                                                           |
+| string          | Checks if the value is a string.                                                                                  |
+| boolean         | Checks if the value is a boolean.                                                                                 |
+| allowed         | Checks if the value is included in a list of allowed values passed as arguments to the function.                  |
+| image           | Checks if the value is an instance of the File class, and also checks if the file's MIME type starts with "image/". |
+| size            | Checks if the value is an instance of the File class, and also checks if the file's size is within a specified range.|
+| email           | Checks if the value is an email value.                                                                            |
+| min             | Checks if the value is more than min value.                                                                       |
+| max             | Checks if the value is below the max value.                                                                       |
+| accepted        | Checks if the value is accepted ("yes", "on", 1, true).                                                           |
+| between         | Checks if the value is between 2 arg (between:1,3).                                                               |
+| declined        | Checks if the value is declined ("no", "off", 0, false).                                                          |
+| ipv4            | Checks if the value is ipv4.                                                                                     |
+| ipv6            | Checks if the value is ipv6.                                                                                     |
+| date            | Checks if the value type is date.                                                                                 |
+
+
+
+
+Regenerate response
 
 
 ## Extends Custom Rules
