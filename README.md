@@ -103,7 +103,7 @@ JS Form Validator provides the following base rules for validating form data:
 
 
 
-Regenerate response
+
 
 
 ## Extends Custom Rules
