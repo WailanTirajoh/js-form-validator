@@ -200,7 +200,9 @@ const validator = new Validator({
   rules: {
     age: [
         async (value) {
-            const { min, max } await fetch('/path/to/your/api');
+            const response = await fetch('/path/to/your/api');
+						const { min, max } = response.json();
+						
             if (value < min || value > max) {
                 return `Age must be between ${min} - ${max}`;
             }
