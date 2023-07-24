@@ -9,8 +9,8 @@ devDependencies:
     specifier: ^17.4.2
     version: 17.4.2
   '@commitlint/config-conventional':
-    specifier: ^17.4.2
-    version: 17.4.2
+    specifier: ^17.6.7
+    version: 17.6.7
   '@types/node':
     specifier: ^20.1.2
     version: 20.3.1
@@ -125,8 +125,8 @@ packages:
       - '@swc/wasm'
     dev: true
 
-  /@commitlint/config-conventional@17.4.2:
-    resolution: {integrity: sha512-JVo1moSj5eDMoql159q8zKCU8lkOhQ+b23Vl3LVVrS6PXDLQIELnJ34ChQmFVbBdSSRNAbbXnRDhosFU+wnuHw==}
+  /@commitlint/config-conventional@17.6.7:
+    resolution: {integrity: sha512-4oTpEUC0HRM54QRHBPMOJW1pETp7usxXn9RuNYNWHcmu8wi1mpws95hvS20u2n6HtIkTn0jfn7vHioCm4AGUTw==}
     engines: {node: '>=v14'}
     dependencies:
       conventional-changelog-conventionalcommits: 5.0.0
